@@ -1,11 +1,11 @@
 <?php
-include_once "Venta.php";
+include_once "Ventas.php";
 include_once "Devolucion.php";
 include_once "Cupon.php";
 
-$_arrayVentas = LeerDatosJSON("Ventas.json");
-$_arrayCupones = LeerDatosJSON("Cupones.json");
-$_arrayDevoluciones = LeerDatosJSON("Devoluciones.json");
+$_arrayVentas = LeerJSON("Ventas.json");
+$_arrayCupones = LeerJSON("Cupones.json");
+$_arrayDevoluciones = LeerJSON("Devoluciones.json");
 
 $numeroPedido = empty($_POST['numeroPedido']) ? 0 : (int)$_POST['numeroPedido'];
 
@@ -19,15 +19,18 @@ if ($indexVenta != -1) {
 	if ($indexDevolucion == -1) {
 		$retorno = Devolucion::GuardarImagenClienteEnojado($_arrayVentas[$indexVenta]);
         if($retorno){
+            //Genero id de devolucion
+            $idDevolucion = count(LeerJSON("Devoluciones.json"))+1;
+
             //Genero el cupon de descuento
-            $cupon = new CuponDeDescuento($_arrayDevoluciones[$indexDevolucion]->_id, $_POST['causa']);
+            $cupon = new Cupon($idDevolucion, $_POST['causa']);
             array_push($_arrayCupones, $cupon);
-            GuardarDatosJSON($_arrayCupones, "cupones.json");
+            GuardarJSON($_arrayCupones, "cupones.json");
 
             //Dejo constancia de la devolucion
-            $devolucion = new Devolucion($cupon->_causa, $numPedido, $cupon->_id);
+            $devolucion = new Devolucion($cupon->_idDevolucion, $cupon->_causa, $numeroPedido, $cupon->_id);
             array_push($_arrayDevoluciones, $devolucion);
-            GuardarDatosJSON($_arrayDevoluciones, "devoluciones.json");
+            GuardarJSON($_arrayDevoluciones, "devoluciones.json");
 
             echo "Queja anotada! El número de su cupón es $cupon->_id";
         }

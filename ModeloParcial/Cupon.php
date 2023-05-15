@@ -1,5 +1,6 @@
 <?php
 include_once "ManejoArchivos.php";
+include_once "Funciones.php";
 
 class Cupon
 {
@@ -9,10 +10,10 @@ class Cupon
     public int $_porcentajeDescuento;
     public string $_estado;
 
-    public function __construct(int $devolucionId, string $causa)
+    public function __construct(int $idDevolucion, string $causa)
     {
-        $this->_id = Funciones::GenerarNuevoValor(LeerDatosJSON('cupones.json'),1000,99999,"_id");
-        $this->_idDevolucion = $devolucionId;
+        $this->_id = Funciones::GenerarNuevoValor(LeerJSON('cupones.json'),1000,99999,"_id");
+        $this->_idDevolucion = $idDevolucion;
         $this->_causa = empty(trim($causa)) ? 'Distintos sabores' : $causa;
         $this->_porcentajeDescuento = 10;
         $this->_estado = "no usado";

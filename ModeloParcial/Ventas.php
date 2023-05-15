@@ -20,7 +20,7 @@ class Venta{
         $this->_id = count(LeerJSON("Ventas.json"))+1;
     }
     public function setNumeroPedido(){
-        $this->_numeroPedido = Venta::GenerarNumeroPedido(LeerJSON("Ventas.json"));
+        $this->_numeroPedido = Funciones::GenerarNuevoValor(LeerJSON('Ventas.json'),1000,10000,"_numeroPedido");
     }
     public function setEmail(string $email){
         $auxEmail = strtolower($email);
@@ -72,14 +72,6 @@ class Venta{
         return $retorno;
     }
     
-    public static function GenerarNumeroPedido(array $arrayVentas){
-        $numeroPedido = random_int(1000, 100000);
-
-        while (array_search($numeroPedido, array_column($arrayVentas, '_numeroPedido')) != false) {
-            $numeroPedido = rand(1000, 100000);
-        }
-        return $numeroPedido;
-    }
     public function EsIgual($numeroPedido){
         $retorno = false;
         if($this->_numeroPedido == $numeroPedido){
@@ -96,7 +88,7 @@ class Venta{
             }
             $indice++;
         }
-        return $retorno;
+        return -1;
     }
     public function GuardarImagenVenta(){
 

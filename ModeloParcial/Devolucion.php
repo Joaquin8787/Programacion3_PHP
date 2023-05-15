@@ -8,11 +8,11 @@ class Devolucion
     public int $_numeroPedido;
     public int $_idCupon;
 
-    public function __construct(string $causa, int $numeroDePedido, int $idCupon)
+    public function __construct(int $id,string $causa, int $numeroPedido, int $idCupon)
     {
-        $this->_id = count(LeerDatosJSON("devoluciones.json")) + 1;
+        $this->_id = $id;
         $this->_causa = $causa;
-        $this->_numeroDePedido = $numeroPedido;
+        $this->_numeroPedido = $numeroPedido;
         $this->_idCupon = $idCupon;
     }
 
@@ -26,7 +26,7 @@ class Devolucion
             }
             $indice++;
         }
-        return $retorno;
+        return -1;
     }
 
     public static function GuardarImagenClienteEnojado($venta)
@@ -41,7 +41,7 @@ class Devolucion
         //Uso el explode para separar el mail
         $emailSeparado = explode("@", $venta->_emailUsuario); 
         //Guardo con tipo, sabor, mail y fecha      
-        $archivo = $this->_tipoPizza . '_' . $this->_saborPizza . '_' . $emailSeparado[0] . '_' . $this->_fechaPedido;
+        $archivo = $venta->_tipoPizza . '_' . $venta->_saborPizza . '_' . $emailSeparado[0] . '_' . $venta->_fechaPedido;
         //Obtengo la ubicacion temporal donde se subio el archivo
         $tmpName = $_FILES["imagen"]["tmp_name"];
         $destino = $path . "/" . $archivo . ".jpg";
