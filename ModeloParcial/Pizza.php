@@ -53,11 +53,15 @@ class Pizza{
         return $retorno;
     }
     public function GuardarImagenPizza(){
-        is_dir(getcwd() . '/ImagenesDePizzas') ? : mkdir(getcwd() . '/ImagenesDePizzas');
-        $archivo = $this->_sabor . '_' . $this->_tipo;
-        $destino = "ImagenesDePizzas/" . $archivo . ".jpg";
-        $tmpName = $_FILES["imagen"]["tmp_name"];
         $retorno = false;
+        $path = 'ImagenesDePizzas';
+        // Comprobar si la carpeta de destino existe, si no, crearla
+        if (!file_exists($path)) {
+            mkdir($path);
+        }
+        $archivo = $this->_sabor . '_' . $this->_tipo;
+        $tmpName = $_FILES["imagen"]["tmp_name"];
+        $destino = $path . "/" . $archivo . ".jpg";
 
         if (move_uploaded_file($tmpName, $destino)) {
             echo "Se pudo guardar la imagen de la pizza correctamente.\n";
@@ -65,7 +69,6 @@ class Pizza{
         }else{
             echo "Hubo algun problema al guardar la imagen de la venta.\n";
         }
-
         return $retorno;
     }
 }

@@ -101,19 +101,20 @@ class Venta{
     public function GuardarImagenVenta(){
 
         $retorno = false;
+        $path = 'ImagenesDeLaVenta';
 
-        //Verifico si la carpeta existe 
-        is_dir(getcwd() . '/ImagenesDeLaVenta') ? : mkdir(getcwd() . '/ImagenesDeLaVenta');
-        
+        // Comprobar si la carpeta de destino existe, si no, crearla
+        if (!file_exists($path)) {
+            mkdir($path);
+        }
         //Uso el explode para separar el mail
         $emailSeparado = explode("@", $this->_emailUsuario); 
-
         //Guardo con tipo, sabor, mail y fecha      
         $archivo = $this->_tipoPizza . '_' . $this->_saborPizza . '_' . $emailSeparado[0] . '_' . $this->_fechaPedido;
-        $destino = "ImagenesDeLaVenta/" . $archivo . ".jpg";
-        
         //Obtengo la ubicacion temporal donde se subio el archivo
         $tmpName = $_FILES["imagen"]["tmp_name"];
+        $destino = $path . "/" . $archivo . ".jpg";
+        
         if (move_uploaded_file($tmpName, $destino)) {
             echo "Se pudo guardar la imagen de la venta correctamente.\n";
             $retorno = true;

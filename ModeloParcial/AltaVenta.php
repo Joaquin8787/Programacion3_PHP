@@ -6,6 +6,7 @@ debe descontar la cantidad vendida del stock .
 */
 include_once "./Ventas.php";
 include_once "./Pizza.php";
+include_once "./Funciones.php";
 
 $_arrayPizzas = LeerJSON("Pizza.json");
 $_arrayVentas = LeerJSON("Ventas.json");

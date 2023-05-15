@@ -17,6 +17,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             case 'consultarVentas':
                 include_once "ConsultasVentas.php";
             break;
+            case 'devolverPizza':
+                include_once "DevolverPizza.php";
+            break;
             default:
              echo "Ingrese bien la funcion";
             break; 

@@ -1,5 +1,6 @@
 <?php
 include_once "./Pizza.php";
+include_once "./Funciones.php";
 
 $_arrayPizzas= LeerJSON("Pizza.json");
 $_arrayPizzas = AddPizza($_arrayPizzas);
