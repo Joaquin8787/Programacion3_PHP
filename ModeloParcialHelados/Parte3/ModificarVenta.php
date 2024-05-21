@@ -12,7 +12,7 @@ function ModificarVenta(array $arrayVentas, array $arrayHelados){
     $datos = json_decode(file_get_contents("php://input"));
     
     // Verificar que se hayan recibido todos los datos necesario
-    if(isset($datos->numeroPedido, $datos->email, $datos->tipo, $datos->vaso, $datos->cantidad)){
+    if(isset($datos->numeroPedido, $datos->email,$datos->sabor, $datos->tipo, $datos->vaso, $datos->cantidad)){
         // Busco la venta correspondiente al número de pedido recibido
         $indexVenta = Venta::BuscarVenta($arrayVentas, $datos->numeroPedido);
 
@@ -20,6 +20,7 @@ function ModificarVenta(array $arrayVentas, array $arrayHelados){
             $ventaEncontrada = $arrayVentas[$indexVenta];
             
             $ventaEncontrada->_emailUsuario = $datos->email;
+            $ventaEncontrada->_saborHelado = $datos->sabor;
             $ventaEncontrada->_tipoHelado = $datos->tipo;
             $ventaEncontrada->_vasoHelado = $datos->vaso;
             $ventaEncontrada->_stockHelado = $datos->cantidad;

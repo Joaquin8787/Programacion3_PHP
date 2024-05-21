@@ -41,7 +41,7 @@ class Devolucion
         //Uso el explode para separar el mail
         $emailSeparado = explode("@", $venta->_emailUsuario); 
         //Guardo con tipo, sabor, mail y fecha      
-        $archivo = $venta->_tipoPizza . '_' . $venta->_saborPizza . '_' . $emailSeparado[0] . '_' . $venta->_fechaPedido;
+        $archivo = $venta->_saborHelado . '_' . $venta->_tipoHelado . '_' .$venta->_vasoHelado . '_' . $emailSeparado[0] . '_' . $venta->_fechaPedido;
         //Obtengo la ubicacion temporal donde se subio el archivo
         $tmpName = $_FILES["imagen"]["tmp_name"];
         $destino = $path . "/" . $archivo . ".jpg";

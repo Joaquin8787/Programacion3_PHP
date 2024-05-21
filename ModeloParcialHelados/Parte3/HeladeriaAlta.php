@@ -27,11 +27,12 @@ function AgregarHelado(array $arrayHelados){
         //$auxArray[$indexHelado] =  $heladoEncontrado;    
     }
     else{
-        //Agrego la Helado al final de array
-        array_push($arrayHelados, $helado);
-        echo "Helado agregado!!:\n";
-        echo $helado->_stock . ' helados sabor ' . $helado->_sabor . ' de tipo' . $helado->_tipo . ' de vaso ' . $helado->_vaso .' por $' . $helado->_precio . "\n";
-        $helado->GuardarImagenHelado();
+        if($helado->GuardarImagenHelado()){
+            //Agrego la Helado al final de array
+            array_push($arrayHelados, $helado);
+            echo "Helado agregado!!:\n";
+            echo $helado->_stock . ' helados sabor ' . $helado->_sabor . ' de tipo' . $helado->_tipo . ' de vaso ' . $helado->_vaso .' por $' . $helado->_precio . "\n";
+        }
     }
     return $arrayHelados;
 }

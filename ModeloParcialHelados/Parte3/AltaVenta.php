@@ -33,13 +33,17 @@ function GenerarVenta(array $arrayHelados,array $arrayVentas){
             //Instancio una nueva venta
             $venta = new Venta($_POST['emailUsuario'],$heladoEncontrado->_sabor,$heladoEncontrado->_tipo,$heladoEncontrado->_vaso,$stock);
             
-            //Agrego la venta al array de ventas
-            array_push($arrayVentas,$venta);
-            $venta->GuardarImagenVenta();
-
-            //Resto el stock
-            $arrayHelados[$indexHelado]->_stock = $stock;
-            GuardarJSON($arrayHelados, "heladeria.json");
+            if($venta->GuardarImagenVenta()){
+                //Agrego la venta al array de ventas
+                array_push($arrayVentas,$venta);
+                //Resto el stock
+                $arrayHelados[$indexHelado]->_stock = $stock;
+                GuardarJSON($arrayHelados, "heladeria.json");
+                echo "Se realizo la venta correctamente!!!";
+            }
+            else{
+                echo "No se pudo realizar la venta";
+            }
         }
         else{
             echo "No hay stock de la helado seleccionado, elija otro helado";
